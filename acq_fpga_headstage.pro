@@ -1,4 +1,4 @@
-update=Thursday, May 12, 2016 'PMt' 12:49:39 PM
+update=Thursday, May 19, 2016 'PMt' 07:42:20 PM
 version=1
 last_client=kicad
 [general]
@@ -61,3 +61,4 @@ LibName27=atmel
 LibName28=contrib
 LibName29=valves
 LibName30=acq_fpga_headstage.pretty/headstage
+LibName31=acq_fpga_headstage.pretty/fpgaclkstamp
