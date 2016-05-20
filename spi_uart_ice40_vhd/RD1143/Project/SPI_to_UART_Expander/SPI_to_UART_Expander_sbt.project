@@ -1,0 +1,57 @@
+[Project]
+Version=Lattice Semiconductor Corporation iCEcube - Release: 2012.06.21457 - Build Date: Jul 24 2012 16:06:18
+ProjectName=SPI_to_UART_Expander
+Vendor=SiliconBlue
+ProjectVFiles=../../source/VHDL/spi_mxdmx.vhd,../../source/VHDL/spi_slave.vhd,../../source/VHDL/spi_uart_expander.vhd,../../source/VHDL/spi_uart_package.vhd
+ProjectCFiles=
+CurImplementation=SPI_to_UART_Expander_Implmnt
+Implementations=SPI_to_UART_Expander_Implmnt
+StartFromSynthesis=yes
+IPGeneration=false
+
+[SPI_to_UART_Expander_Implmnt]
+DeviceFamily=iCE40
+Device=HX8K
+DevicePackage=CT256
+DevicePower=
+NetlistFile=SPI_to_UART_Expander_Implmnt/SPI_to_UART_Expander.edf
+AdditionalEDIFFile=
+IPEDIFFile=
+DesignLib=SPI_to_UART_Expander_Implmnt/sbt/netlist/oadb-spi_uart_expander
+DesignView=_rt
+DesignCell=spi_uart_expander
+SynthesisSDCFile=SPI_to_UART_Expander_Implmnt/SPI_to_UART_Expander.scf
+UserPinConstraintFile=
+UserSDCFile=
+PhysicalConstraintFile=
+BackendImplPathName=
+Devicevoltage=1.14
+DevicevoltagePerformance=+/-5%(datasheet default)
+DeviceTemperature=70
+TimingAnalysisBasedOn=Worst
+OperationRange=Commercial
+TypicalCustomTemperature=25
+WorstCustomTemperature=70
+BestCustomTemperature=0
+IOBankVoltages=topBank,2.5 bottomBank,2.5 leftBank,2.5 rightBank,2.5
+derValue=1.09423
+TimingPathNumberStick=0
+
+[tool options]
+PlacerEffortLevel=std
+PlacerAutoLutCascade=yes
+PlacerAutoRamCascade=yes
+PlacerPowerDriven=no
+RouteWithTimingDriven=yes
+RouteWithPinPermutation=yes
+BitmapSPIFlashMode=yes
+BitmapRAM4KInit=yes
+BitmapInitRamBank=1111
+BitmapOscillatorFR=low
+BitmapEnableWarmBoot=yes
+BitmapSetSecurity=no
+BitmapSetNoUsedIONoPullup=no
+FloorPlannerShowFanInNets=yes
+FloorPlannerShowFanOutNets=yes
+HookTo3rdPartyTextEditor=
+
