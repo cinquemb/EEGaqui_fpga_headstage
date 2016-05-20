@@ -1,6 +1,6 @@
 # TODO #
 
-- make libs for fpga (oscilator, (cdce913) PLL, external memory ffpga)
-- make libs for power routing (headstage, fpga)
+- make libs for fpga (oscilator, ((cdce913) PLL???), ffpga)
+- make libs for acq sys (power routing/voltage ctrl->{headstage, fpga}, external memory)
 - add datasheets to dir
 - make schematic with parts from libs 
