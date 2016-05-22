@@ -1,0 +1,79 @@
+// Copyright 2012 Accellera Systems Initiative
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at:
+// http://www.apache.org/licenses/LICENSE-2.0
+
+// Model for an operational amplifier 
+
+`include "disciplines.vams"
+`include "constants.vams"
+
+`define dB2dec(x) pow(10, x/20)
+
+module opamp(vinp, vinm, vdd, vss, voutp, voutm);
+    inout vinp, vinm, vdd, vss;
+    inout voutp, voutm;
+    electrical vinp, vinm, vdd, vss, voutp, voutm;
+
+    parameter real gain = 100 from (0:inf);          // open loop gain in dB
+    parameter real three_dB_freq  = 1M from (0:inf); // 3dB frequency
+    parameter real rin  = 1M from (0:inf);           // input resistance
+    parameter real cin  = 1n from [0:inf);           // input capacitance
+    parameter real iout_max = 100n from (0:inf);     // max. output current
+    parameter real vout_offset = 0;                  // output dc offset, must
+                                                     // be between Vdd and Vss,
+                                                     // but is not checked in
+                                                     // model
+    parameter real rout = 80 from (0:inf);           // output resistance
+    parameter real volc = 1;                         // coefficient, influences
+                                                     // how hard output voltage
+                                                     // is switching into
+                                                     // saturation
+
+    real vin, vout, voutmax, voutmin, vout0, iout;
+
+    analog begin
+        vin  = V(vinp, vinm);
+        vout = V(voutp, voutm);
+        voutmax = V(vdd);
+        voutmin = V(vss);
+
+        // input stage
+        I(vinp, vinm) <+ vin / rin + cin * ddt(vin);
+
+        // dominant pole
+        vout0 = laplace_nd(vin*`dB2dec(gain),
+                           {1}, {1, 1/(`M_TWO_PI*three_dB_freq)})
+                + vout_offset;
+
+        // output current
+        iout = (vout0 - vout) / rout;
+
+        // output current limitation
+        case (1)
+            iout >  iout_max : iout =  iout_max;
+            iout < -iout_max : iout = -iout_max;
+        endcase
+
+        // output voltage limitation
+        // it may have a discontinuity at vout=vout_offset
+        // therefor we assign iout via slew function
+        //
+        if (vout >= vout_offset)
+            iout = iout*tanh(volc*(voutmax-vout));
+        else
+            iout = iout*tanh(volc*abs(voutmin-vout));
+
+        // slewrate applied is only an estimation to smooth out
+        // the discontinuity introduced by the output voltage limitation
+        // it is not the slew rate of a real opamp !!!
+        //
+        I(voutp, voutm) <+ slew(iout, iout_max*three_dB_freq);
+    end
+
+endmodule
+
+`undef dB2dec
+
