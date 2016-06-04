@@ -1,6 +1,5 @@
 # TODO #
 
-- make libs for acq sys (external memory)
 - add datasheets to dir
 - *verilog for filter generated from python script
 - *verilog op-amp (need to figure out contstants for resistors?)
